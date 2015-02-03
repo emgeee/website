@@ -15,10 +15,6 @@ ghost({
   config: path.join(__dirname, 'ghost/config.js')
 
 }).then(function(ghostServer) {
-  app.use(ghostServer.config.paths.subdir, ghostServer.rootApp);
-
-  // console.log(ghostServer.config)
-  ghostServer.start(app);
 
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +28,8 @@ ghost({
   // app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use('/', routes);
+  app.use(ghostServer.config.paths.subdir, ghostServer.rootApp);
+  // app.use('/', routes);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
@@ -40,6 +37,10 @@ ghost({
       err.status = 404;
       next(err);
   });
+
+  // console.log(ghostServer.config)
+  ghostServer.start(app);
+
 
   // error handlers
 
