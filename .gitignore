@@ -30,3 +30,5 @@ node_modules
 npm-debug.log
 
 ghost/data/
+ghost/themes/Casper
+.DS_Store
